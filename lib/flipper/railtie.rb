@@ -10,6 +10,13 @@ module Flipper
       )
     end
 
+
+    initializer "flipper.identifier" do
+      ActiveSupport.on_load(:active_record) do
+        ActiveRecord::Base.include Flipper::Identifier
+      end
+    end
+
     initializer "flipper.default", before: :load_config_initializers do |app|
       Flipper.configure do |config|
         config.default do
@@ -37,10 +44,5 @@ module Flipper
       end
     end
 
-    initializer "flipper.identifier" do
-      ActiveSupport.on_load(:active_record) do
-        ActiveRecord::Base.include Flipper::Identifier
-      end
-    end
   end
 end
